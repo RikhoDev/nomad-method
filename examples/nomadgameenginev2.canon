@@ -1,0 +1,10 @@
+# Canon globs for NomadGameEngineV2 (copy to .nomad-method/canon at its root).
+AGENTS.md
+.github/copilot-instructions.md
+.github/instructions/*.md
+Engine/__Docs/Worldview.md
+Engine/__Docs/ARCHITECTURE.md
+Engine/__Docs/Patterns/*.md
+Engine/__Docs/ADRs/*.md
+Engine/__Docs/README.md
+Engine/__Docs/Transmission.md

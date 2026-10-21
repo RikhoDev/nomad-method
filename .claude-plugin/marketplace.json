@@ -1,0 +1,12 @@
+{
+  "name": "nomad-method",
+  "owner": { "name": "RikhoKorp" },
+  "description": "Working discipline for AI contributors, drawn from the Nomad method probes.",
+  "plugins": [
+    {
+      "name": "nomad-method",
+      "source": "./plugin",
+      "description": "Makes the checks happen: mode gate, hint verification, canon-duplication check at commit, and an isolated judge for review."
+    }
+  ]
+}
