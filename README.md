@@ -56,6 +56,19 @@ The plugin ships no `bin/` folder: claude.ai-hosted plugins may not, because
 surface. Its scripts run only through the hooks and the review skill, which
 call them by path.
 
+### Upload to claude.ai
+
+[dist/nomad-method-plugin.zip](dist/nomad-method-plugin.zip) is the plugin
+folder zipped with its manifest at the archive root, ready to upload. It is a
+build of `plugin/`; rebuild it after changing the plugin:
+
+```bash
+git archive --format=zip -o dist/nomad-method-plugin.zip HEAD:tools/nomad-method/plugin
+```
+
+(After extraction to its own repository, use `HEAD:plugin`.) `claude plugin
+validate` does not read zips; unzip into an empty folder to validate.
+
 ### Tell it what canon is
 
 By default the canon check covers `AGENTS.md`, `CLAUDE.md`, Copilot
