@@ -32,7 +32,7 @@ it is wrong.
 | [Canon check](plugin/scripts/canon_check.py) | before any `git commit` (hook) | blocks once when added canon text restates existing canon; lists the matches |
 | [`/nomad-method:review`](plugin/skills/review/SKILL.md) | on request, or when the agent is about to call a canon change done | author rereads the diff against the base, then hands a packet to the judge with a fixed prompt |
 | [`judge` agent](plugin/agents/judge.md) | launched by review | read-only (Read, Grep, Glob); restatement, growth, unverified claims, status, contradiction, placement; then three questions |
-| [`nomad-review-packet`](plugin/bin/nomad-review-packet) | used by review | writes the diff, stat and commit subjects to a temporary directory |
+| [`nomad-review-packet`](plugin/scripts/nomad-review-packet) | used by review | writes the diff, stat and commit subjects to a temporary directory |
 
 The project's own instructions win where they conflict with the discipline.
 
@@ -50,6 +50,11 @@ Once extracted to its own GitHub repository, use
 without installing: `claude --plugin-dir ./tools/nomad-method/plugin`.
 
 Requirements: `git`, `python3` (standard library only) and `bash` on `PATH`.
+
+The plugin ships no `bin/` folder: claude.ai-hosted plugins may not, because
+`bin/` executables join `PATH` without appearing on the admin approval
+surface. Its scripts run only through the hooks and the review skill, which
+call them by path.
 
 ### Tell it what canon is
 

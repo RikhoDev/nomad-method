@@ -15,7 +15,7 @@ see because you know why you did it.
 Commit or stage nothing new for this; review what exists. Run:
 
 ```bash
-nomad-review-packet $ARGUMENTS
+bash "${CLAUDE_PLUGIN_ROOT}/scripts/nomad-review-packet" $ARGUMENTS
 ```
 
 It prints a directory. Note the path.
