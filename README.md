@@ -1,5 +1,7 @@
 # nomad-method
 
+<img src="plugin/.claude-plugin/icon.png" alt="nomad-method icon: a camel silhouette against a low sun, head turned back over its hump toward its own footprints" width="128">
+
 A Claude Code plugin that makes a contributor's checks happen at the moments
 they matter, instead of relying on anyone remembering to ask for them.
 
@@ -131,6 +133,26 @@ Each part answers a learning there:
 - the three questions: the recursion step.
 
 After extraction, that link will break; keep it as provenance.
+
+## Icon
+
+![nomad-method icon at full size](plugin/.claude-plugin/icon.png)
+
+**Purpose.** The plugin's listing icon; the validator looks for it at
+`plugin/.claude-plugin/icon.png`. **Original:**
+[icon.svg](plugin/.claude-plugin/icon.svg), hand-written vector; the PNG is a
+1024 px render of it.
+
+A camel looking back over its shoulder at its own tracks: thinking shown as
+checking, after the plugin's best-evidenced check, comparing your change with
+the base. The design went through the method: the first idea, a camel with a
+thought bubble, did not survive the 32 px size at which plugin lists show it;
+the first drafts read as a llama, then a bear, and were redrawn.
+
+To re-render after editing the SVG, open it at 1024 × 1024 in a browser (for
+example headless Chromium with `--screenshot`) and save as PNG. Limits: drawn
+by an AI contributor, not a designer; checked by eye at 1024, 48 and 32 px
+only.
 
 ## Testing a colleague's setup
 

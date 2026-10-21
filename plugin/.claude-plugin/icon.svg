@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- nomad-method icon: a camel looking back at its own tracks. Source of icon.png. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a1b4d"/>
+      <stop offset="0.55" stop-color="#8a3f5c"/>
+      <stop offset="1" stop-color="#e2834a"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffe3a3"/>
+      <stop offset="1" stop-color="#f7b866"/>
+    </radialGradient>
+    <clipPath id="tile"><rect width="1024" height="1024" rx="210"/></clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="1024" height="1024" fill="url(#sky)"/>
+    <circle cx="560" cy="560" r="290" fill="url(#sun)"/>
+    <!-- dunes -->
+    <path d="M0 760 C 220 700 420 730 600 760 S 900 790 1024 740 L1024 1024 L0 1024 Z" fill="#d99a55"/>
+    <path d="M0 860 C 260 800 520 850 760 880 S 960 860 1024 840 L1024 1024 L0 1024 Z" fill="#c4833f"/>
+    <!-- tracks leading back from the camel's feet -->
+    <g fill="#9a5f2e">
+      <ellipse cx="372" cy="800" rx="24" ry="10"/>
+      <ellipse cx="300" cy="818" rx="22" ry="10"/>
+      <ellipse cx="232" cy="796" rx="20" ry="9"/>
+      <ellipse cx="168" cy="812" rx="18" ry="8"/>
+      <ellipse cx="110" cy="790" rx="16" ry="7"/>
+      <ellipse cx="58" cy="804" rx="14" ry="6"/>
+    </g>
+    <!-- camel, head turned back over its shoulder -->
+    <g fill="#24162f" stroke="#24162f" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="575" cy="565" rx="215" ry="78" stroke="none"/>
+      <path stroke="none" d="M 405 545 C 420 430 490 350 575 348 C 660 350 725 430 742 545 Z"/>
+      <path fill="none" stroke-width="68" d="M 755 560 C 800 540 840 500 846 440 C 850 400 842 370 818 352"/>
+      <path stroke-width="6" d="M 852 340 C 832 304 772 298 724 316 C 692 328 684 366 708 380 C 744 396 812 386 854 364 Z"/>
+      <path stroke-width="6" d="M 812 316 L 822 290 L 836 318 Z"/>
+      <path fill="none" stroke-width="38" d="M 440 600 L 430 700 L 440 790"/>
+      <path fill="none" stroke-width="38" d="M 500 620 L 510 705 L 498 786"/>
+      <path fill="none" stroke-width="38" d="M 680 620 L 690 705 L 680 790"/>
+      <path fill="none" stroke-width="38" d="M 735 605 L 728 700 L 740 784"/>
+      <path fill="none" stroke-width="14" d="M 372 540 C 350 565 348 595 356 625"/>
+    </g>
+    <!-- eye, looking back at the tracks -->
+    <circle cx="740" cy="340" r="9" fill="#f7b866"/>
+  </g>
+</svg>
