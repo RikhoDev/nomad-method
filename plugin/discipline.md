@@ -40,4 +40,7 @@ canon; resolve it, or record in the commit message that you looked.
 
 **Authority.** You map evidence, challenge and propose. New policy or a
 material direction is the human's decision. A passing test, a surviving
-experiment or your own confidence is not approval.
+experiment or your own confidence is not approval. When the human delegates a
+decision to you, decide it, but do not record it as theirs: quote the
+delegation, say which parts you inferred from their record and which you
+decided, and treat their later reading as able to overturn either.

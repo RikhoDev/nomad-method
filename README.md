@@ -29,10 +29,10 @@ it is wrong.
 | Part | When it acts | What it does |
 | --- | --- | --- |
 | [Working discipline](plugin/discipline.md) | every session start (hook) | modes, verify hints, label status, hold and yield on evidence, keep canon small, compare with the base, authority |
-| [Canon check](plugin/scripts/canon_check.py) | before any `git commit` (hook) | blocks once when added canon text restates existing canon; lists the matches |
+| [Canon check](plugin/scripts/canon_check.py) | before any Bash command that commits (hook) | blocks once when added canon text restates existing canon; lists the matches. Finds the commit inside compound commands and follows `cd` and `git -C` to the repository being committed to |
 | [`/nomad-method:review`](plugin/skills/review/SKILL.md) | on request, or when the agent is about to call a canon change done | author rereads the diff against the base, then hands a packet to the judge with a fixed prompt |
 | [`judge` agent](plugin/agents/judge.md) | launched by review | read-only (Read, Grep, Glob); restatement, growth, unverified claims, status, contradiction, placement; then three questions |
-| [`nomad-review-packet`](plugin/scripts/nomad-review-packet) | used by review | writes the diff, stat and commit subjects to a temporary directory |
+| [`nomad_review_packet.py`](plugin/scripts/nomad_review_packet.py) | used by review | writes to a temporary directory: the diff including new files' contents, the stat, commit subjects, which canon list is in use, and every local ref's history (no commit bodies) |
 
 The project's own instructions win where they conflict with the discipline.
 
@@ -49,7 +49,7 @@ Once extracted to its own GitHub repository, use
 `/plugin marketplace add <owner>/<repo>` instead. To try it for one session
 without installing: `claude --plugin-dir ./tools/nomad-method/plugin`.
 
-Requirements: `git`, `python3` (standard library only) and `bash` on `PATH`.
+Requirements: `git` and `python3` (standard library only) on `PATH`.
 
 The plugin ships no `bin/` folder: claude.ai-hosted plugins may not, because
 `bin/` executables join `PATH` without appearing on the admin approval
@@ -121,6 +121,42 @@ better; see the limits.
     the human. The agent's closing offer named the base commit as the one to
     revert: a slip of the kind the plugin does not catch.
 
+### 0.2.0, from a field test on NomadArchitecture (2026-10-21)
+
+A session used 0.1.0 to rework the NomadArchitecture repository through three
+review loops. It found these problems in the plugin; each fix has a test.
+
+- **The canon check never ran.** `"if": "Bash(git commit*)"` matches only
+  commands that start with `git commit`. Agents usually commit with
+  `cd <repo> && git add -A && git commit ...`. Observed live with Claude Code
+  2.1.306 and `claude -p --plugin-dir`: a compound commit restating a rule at
+  93% overlap went through, while a plain `git commit` was blocked. The
+  script also read the session's directory, not the one the command entered.
+  Fixed: no `if`; the script finds commits in compound commands and follows
+  `cd` and `git -C`.
+- **The review script did not run from the synced copy.** The copy installed
+  from claude.ai had CRLF line endings, and bash rejected `set -o pipefail`.
+  The committed zip is LF, so where the CRLF came from is unknown. Fixed: the
+  script is now Python, which accepts either ending, and `.gitattributes` keeps
+  LF in checkouts.
+- **The judge could not see new files.** The packet listed untracked files by
+  name only; on that session's first review, all five new canon files would
+  have been invisible. Fixed: their contents are in `change.diff`.
+- **The judge reported checkable history as unknown**, for example "this file
+  never existed" or "this commit added that file". Fixed: `history.txt`.
+- **A wrong argument failed obscurely.** Passing a description instead of a
+  base ref ended in a git error. Fixed: a clear refusal.
+- **The canon was not configured, silently.** Without `.nomad-method/canon`,
+  the defaults covered none of NomadArchitecture's canon. Now `README.txt`
+  names the canon list in use, and the judge flags guidance the defaults miss.
+- **Delegated authority had no rule.** The human said "infer what I would deem
+  canon … for the rest, you debate with yourself"; the author and the judge
+  disagreed over whether the result was the human's decision. The discipline
+  now says how to record a delegation.
+
+Tests: `python3 -m unittest discover -s tests` now runs 19 cases. Nine were
+added for the faults above, and each failed before its fix.
+
 ## Known limits
 
 - The canon check matches wording, not meaning. A paraphrase of an existing
@@ -130,8 +166,12 @@ better; see the limits.
 - The judge sees commit subjects but not commit bodies, by design: bodies
   carry the author's reasoning. So it cannot see an authorization recorded
   there, and reports it as unknown.
-- The judge cannot run git; claims about history it could not check are
-  unknowns.
+- The judge cannot run git. It checks history claims against the packet's
+  `history.txt`; what lies beyond it (a shallow clone's past, refs not
+  fetched, commit bodies) stays unknown.
+- The hook now runs for every Bash command and exits in about 40 ms when the
+  command does not commit. A commit hidden from the parser, for example inside
+  a script file or an `eval`, is not checked.
 - The discipline is instruction text. In the probes, instruction text alone
   changed behaviour for asking what kind of answer is wanted (2 of 2) and for
   not rewriting an existing rule (2 of 2); small samples, one model family.

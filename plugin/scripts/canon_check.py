@@ -17,7 +17,9 @@ Canon is configured per project in `.nomad-method/canon` (one glob per line,
 
 import fnmatch
 import json
+import os
 import re
+import shlex
 import subprocess
 import sys
 
@@ -167,15 +169,62 @@ def find_restatements(root):
     return found
 
 
+SEPARATORS = {"&&", "||", ";", "|", "&", "(", ")", "\n"}
+
+
+def commit_dirs(command, cwd):
+    """Directories in which `command` runs `git commit`.
+
+    Follows `cd <dir>` and `git -C <dir>` through compound commands such as
+    `cd repo && git add -A && git commit -m ...`, so the check looks at the
+    repository being committed to, not the session's working directory.
+    """
+    lexer = shlex.shlex(command.replace("\n", " ; "), posix=True, punctuation_chars=True)
+    lexer.whitespace_split = True
+    tokens = list(lexer)
+    dirs, here, i = [], cwd, 0
+    while i < len(tokens):
+        start = i == 0 or tokens[i - 1] in SEPARATORS
+        word = tokens[i]
+        if start and word == "cd" and i + 1 < len(tokens) and tokens[i + 1] not in SEPARATORS:
+            here = os.path.normpath(os.path.join(here, os.path.expanduser(tokens[i + 1])))
+            i += 2
+            continue
+        if start and word == "git":
+            j, where = i + 1, here
+            while j < len(tokens) and tokens[j] not in SEPARATORS:
+                if tokens[j] == "-C" and j + 1 < len(tokens):
+                    where = os.path.normpath(os.path.join(where, os.path.expanduser(tokens[j + 1])))
+                    j += 2
+                elif tokens[j] in ("-c", "--git-dir", "--work-tree") and j + 1 < len(tokens):
+                    j += 2
+                elif tokens[j].startswith("-"):
+                    j += 1
+                else:
+                    if tokens[j] == "commit":
+                        dirs.append(where)
+                    break
+            i = j
+            continue
+        i += 1
+    return dirs
+
+
 def main():
     try:
         payload = json.load(sys.stdin)
         command = payload.get("tool_input", {}).get("command", "")
-        if not re.search(r"\bgit\b.*\bcommit\b", command) or REVIEWED_TRAILER in command:
+        if "commit" not in command or REVIEWED_TRAILER in command:
             return 0
-        root = git(payload.get("cwd") or ".", "rev-parse", "--show-toplevel").strip()
-        git(root, "rev-parse", "--verify", "HEAD")
-        found = find_restatements(root)
+        cwd = payload.get("cwd") or "."
+        try:
+            dirs = commit_dirs(command, cwd)
+        except ValueError:  # unbalanced quotes: fall back to the session's directory
+            dirs = [cwd] if re.search(r"\bgit\b.*\bcommit\b", command) else []
+        found = []
+        for root in dict.fromkeys(git(d, "rev-parse", "--show-toplevel").strip() for d in dirs):
+            git(root, "rev-parse", "--verify", "HEAD")
+            found += find_restatements(root)
     except Exception:  # fail open: the check prompts a look, it never wedges work
         return 0
     if not found:

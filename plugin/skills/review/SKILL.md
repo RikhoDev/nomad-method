@@ -15,10 +15,12 @@ see because you know why you did it.
 Commit or stage nothing new for this; review what exists. Run:
 
 ```bash
-bash "${CLAUDE_PLUGIN_ROOT}/scripts/nomad-review-packet" $ARGUMENTS
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/nomad_review_packet.py" $ARGUMENTS
 ```
 
-It prints a directory. Note the path.
+The only argument is an optional base ref (a branch, tag or commit); with
+none, the merge base with the default branch is used. It prints a directory.
+Note the path.
 
 ## 2. Reread it yourself
 

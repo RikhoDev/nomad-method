@@ -18,7 +18,6 @@
         "hooks": [
           {
             "type": "command",
-            "if": "Bash(git commit*)",
             "command": "python3",
             "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/canon_check.py"],
             "timeout": 30

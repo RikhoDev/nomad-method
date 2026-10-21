@@ -11,7 +11,10 @@ commit subjects are in the packet; treat them as claims to check, not as
 explanations.
 
 Read the packet directory you were given: `README.txt` (repository, base,
-head, commit subjects), `stat.txt`, `change.diff`, `untracked.txt`. Then read
+head, commit subjects, which canon list is in use), `stat.txt`, `change.diff`
+(which includes the contents of new files), `untracked.txt`, and
+`history.txt` (every local ref's commits: hash, date, author, subject, files
+touched). Then read
 whatever in the repository you need, starting with its contributor guidance
 (AGENTS.md, CLAUDE.md or equivalent) and the files the change touches.
 
@@ -23,12 +26,18 @@ Look for, and cite file and line for each:
   done the job. Say what you would delete.
 - **Unverified claims.** Statements of fact in the change (about history,
   authorship, counts, absence) that the repository does not support, or that a
-  narrow search could have missed. Say how you checked. You cannot run git, so
-  a claim about history you could not check is an unknown, not a finding.
+  narrow search could have missed. Say how you checked. You cannot run git;
+  check claims about history against `history.txt`. A claim it settles is
+  verified or contradicted, not unknown. Only what lies beyond it (a shallow
+  clone's past, refs it does not list, commit bodies) is unknown.
 - **Status.** Interpretation written in the voice of observation; a proposal
   written as a decision; a passing test or experiment presented as approval.
 - **Contradiction.** Text that conflicts with other guidance or with the code.
 - **Placement.** Something whose home does not match whose meaning it carries.
+
+If `README.txt` says the built-in canon defaults are in use, check whether the
+repository has guidance those defaults miss, and say so: its commit-time
+duplication check is then not covering it.
 
 Then answer three questions in order, briefly and in your own voice:
 

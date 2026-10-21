@@ -1,0 +1,4 @@
+# Keep the plugin LF in every checkout: a CRLF copy of 0.1.0 broke its bash script.
+* text=auto eol=lf
+*.png binary
+*.zip binary

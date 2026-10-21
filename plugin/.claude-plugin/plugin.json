@@ -1,6 +1,6 @@
 {
   "name": "nomad-method",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Makes the checks happen: mode gate, hint verification, canon-duplication check at commit, and an isolated judge for review. It does not make the answer right; the human still has to know when to contradict.",
   "author": { "name": "RikhoKorp" },
   "license": "MIT",

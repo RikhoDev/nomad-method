@@ -112,6 +112,33 @@ class CanonCheckTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as empty:
             self.assertEqual(run_hook(empty)[0], 0)
 
+    def test_compound_command_checks_the_repository_it_enters(self):
+        # The agent's shell often runs `cd <repo> && git add -A && git commit`,
+        # from a session whose own working directory is somewhere else.
+        self.write("CLAUDE.md", f"{RULE}\n")
+        with tempfile.TemporaryDirectory() as elsewhere:
+            command = f"cd {self.root} && git add -A && git commit -q -m x"
+            code, err = run_hook(elsewhere, command)
+        self.assertEqual(code, 2)
+        self.assertIn("CLAUDE.md", err)
+
+    def test_git_dash_c_checks_the_named_repository(self):
+        self.write("CLAUDE.md", f"{RULE}\n")
+        with tempfile.TemporaryDirectory() as elsewhere:
+            code, _ = run_hook(elsewhere, f"git -C {self.root} commit -m x")
+        self.assertEqual(code, 2)
+
+    def test_hook_is_not_limited_to_commands_that_start_with_git_commit(self):
+        # Claude Code matches `if: Bash(git commit*)` against the start of the
+        # command, so compound commands skipped the check (observed live with
+        # Claude Code 2.1.306). The script does its own filtering.
+        hooks = os.path.join(os.path.dirname(HOOK), "..", "hooks", "hooks.json")
+        with open(hooks, encoding="utf-8") as f:
+            entries = json.load(f)["hooks"]["PreToolUse"]
+        canon = [h for e in entries for h in e["hooks"] if "canon_check.py" in " ".join(h.get("args", []))]
+        self.assertEqual(len(canon), 1)
+        self.assertNotIn("if", canon[0])
+
     def test_bad_input_fails_open(self):
         result = subprocess.run([sys.executable, HOOK], input="not json", capture_output=True, text=True)
         self.assertEqual(result.returncode, 0)
