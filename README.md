@@ -5,10 +5,11 @@
 A Claude Code plugin that makes a contributor's checks happen at the moments
 they matter, instead of relying on anyone remembering to ask for them.
 
-> **Staged here for extraction.** This folder is a self-contained side project
-> (plugin, marketplace, tests). It is not engine source and nothing in the
-> repository depends on it. Lift the folder out as the root of its own
-> repository; no paths need to change.
+> **Extracted on 2026-10-22** from `tools/nomad-method` in
+> RikhoKorp/NomadGameEngineV2, with its history (`git subtree split`). The
+> method it carries is written down in
+> [RikhoDev/NomadArchitecture](https://github.com/RikhoDev/NomadArchitecture),
+> which uses this plugin on itself.
 
 ## What it promises, and what it does not
 
@@ -38,16 +39,13 @@ The project's own instructions win where they conflict with the discipline.
 
 ## Install
 
-From a clone of this repository (or of the extracted side project):
-
 ```text
-/plugin marketplace add ./tools/nomad-method
+/plugin marketplace add RikhoDev/nomad-method
 /plugin install nomad-method@nomad-method
 ```
 
-Once extracted to its own GitHub repository, use
-`/plugin marketplace add <owner>/<repo>` instead. To try it for one session
-without installing: `claude --plugin-dir ./tools/nomad-method/plugin`.
+From a local clone, use `/plugin marketplace add ./` instead. To try it for
+one session without installing: `claude --plugin-dir ./plugin`.
 
 Requirements: `git` and `python3` (standard library only) on `PATH`.
 
@@ -63,11 +61,11 @@ folder zipped with its manifest at the archive root, ready to upload. It is a
 build of `plugin/`; rebuild it after changing the plugin:
 
 ```bash
-git archive --format=zip -o dist/nomad-method-plugin.zip HEAD:tools/nomad-method/plugin
+git archive --format=zip -o dist/nomad-method-plugin.zip HEAD:plugin
 ```
 
-(After extraction to its own repository, use `HEAD:plugin`.) `claude plugin
-validate` does not read zips; unzip into an empty folder to validate.
+`claude plugin validate` does not read zips; unzip into an empty folder to
+validate.
 
 ### Tell it what canon is
 
@@ -182,7 +180,7 @@ added for the faults above, and each failed before its fix.
 ## Origin
 
 Drawn from the method probes recorded in NomadGameEngineV2
-[dossier 2610-85](../../Engine/__Docs/Dossiers/2610-85-Method-Hypothesis-And-Behaviour-Probe.md).
+dossier 2610-85 (NomadGameEngineV2: `Engine/__Docs/Dossiers/2610-85-Method-Hypothesis-And-Behaviour-Probe.md`, on its method branch).
 Each part answers a learning there:
 
 - the discipline: "understanding is not action";
@@ -190,7 +188,7 @@ Each part answers a learning there:
 - the judge's isolation: the clean-channel note;
 - the three questions: the recursion step.
 
-After extraction, that link will break; keep it as provenance.
+That repository is private; the reference is kept as provenance.
 
 ## Icon
 
