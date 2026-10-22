@@ -5,8 +5,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cat",
-            "args": ["${CLAUDE_PLUGIN_ROOT}/discipline.md"],
+            "command": "python3",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/print_document.py", "${CLAUDE_PLUGIN_ROOT}/discipline.md"],
             "timeout": 10
           }
         ]

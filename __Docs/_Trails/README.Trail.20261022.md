@@ -71,11 +71,10 @@ names `nomad_review_packet.py`.
    Host platform requires belongs to the Host. Meaning is then placed beneath
    or beside it, and the placement test applies from there.
 2. **A file the platform injects verbatim cannot carry a header.** The
-   SessionStart hook prints `discipline.md` into every session as it is. A
-   status header would print YAML into every agent's context. It is listed in
-   `.nomad-method/canon` but has no header.
-   *Options:* the hook strips front matter before printing, or the canon lets
-   a canon list stand in for a header on such files.
+   SessionStart hook printed `discipline.md` into every session as it was.
+   *Resolved in the plugin, not the canon (0.2.1):* the hook now prints it
+   through `scripts/print_document.py`, which drops the header, and
+   `discipline.md` carries one.
 3. **The canon index is NomadArchitecture's own.** Its check requires a
    `__Docs/README.md` with a `## Canon` list that agrees with the headers and
    with `.nomad-method/canon`. This repository has no such index;
@@ -102,3 +101,23 @@ names `nomad_review_packet.py`.
 By the promotion rule (NA:`__Docs/Architecture.md#promotion`), these are
 realization and policy differences to classify, not a conflict, and the
 saving would be a few lines. Not promoted.
+
+## Decisions on the misfits
+
+The human, on 2026-10-22: "2 and 3, do your best, that's why the plugin
+exists, you should be able to see the value in the options you have and select
+the most appropriate to the problem." These are the assistant's decisions
+under that delegation.
+
+- **1 and 4: amend NomadArchitecture's placement rule.** Both are layouts
+  that a platform or toolchain requires. One subsection in
+  NA:`__Docs/Architecture.md` now covers them; see that repository's canon
+  Trail.
+- **2: fix the plugin, not the canon** (above). The header rule stays
+  universal.
+- **3: no change.** The canon index belongs to NomadArchitecture, and its
+  check is its own tool.
+- **5: no change.** One consumer is not enough evidence to amend a rule.
+- **6: no change.** The canon names no language; only NomadArchitecture's
+  tools do.
+- **The `git()` helper: not promoted** (above).

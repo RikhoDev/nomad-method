@@ -1,3 +1,9 @@
+---
+status: canon
+kind: doctrine
+origin: ai
+---
+
 # Working discipline (nomad-method plugin)
 
 This complements the project's own instructions; where they conflict, the

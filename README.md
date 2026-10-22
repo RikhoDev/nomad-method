@@ -31,7 +31,7 @@ it is wrong.
 
 | Part | When it acts | What it does |
 | --- | --- | --- |
-| [Working discipline](plugin/discipline.md) | every session start (hook) | modes, verify hints, label status, hold and yield on evidence, keep canon small, compare with the base, authority |
+| [Working discipline](plugin/discipline.md) | every session start (hook, header removed) | modes, verify hints, label status, hold and yield on evidence, keep canon small, compare with the base, authority |
 | [Canon check](plugin/scripts/canon_check.py) | before any Bash command that commits (hook) | blocks once when added canon text restates existing canon; lists the matches. Finds the commit inside compound commands and follows `cd` and `git -C` to the repository being committed to |
 | [`/nomad-method:review`](plugin/skills/review/SKILL.md) | on request, or when the agent is about to call a canon change done | author rereads the diff against the base, then hands a packet to the judge with a fixed prompt |
 | [`judge` agent](plugin/agents/judge.md) | launched by review | read-only (Read, Grep, Glob); restatement, growth, unverified claims, status, contradiction, placement; then three questions |
@@ -120,6 +120,16 @@ better; see the limits.
     reread. Both found the duplication independently and left the decision to
     the human. The agent's closing offer named the base commit as the one to
     revert: a slip of the kind the plugin does not catch.
+
+### 0.2.1 (2026-10-22)
+
+The SessionStart hook prints `discipline.md` through
+[`print_document.py`](plugin/scripts/print_document.py), which drops the
+file's status header. The discipline can then carry a header like every other
+document, and no session sees YAML. Four tests cover it, and a live
+`claude -p` session confirmed it received the discipline without a header.
+This was decided by the assistant under the human's delegation ("do your
+best"); see the [Trail](__Docs/_Trails/README.Trail.20261022.md).
 
 ### 0.2.0, from a field test on NomadArchitecture (2026-10-21)
 
