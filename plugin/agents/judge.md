@@ -1,6 +1,9 @@
 ---
+status: proposed
+kind: doctrine
+origin: ai
 name: judge
-description: Isolated reviewer for a change. Give it only the path of a packet written by nomad-review-packet; it reads the change and the repository, never the author's reasoning, and has no write access.
+description: Isolated reviewer for a change. Give it only the path of a packet written by nomad_review_packet.py; it reads the change and the repository, never the author's reasoning, and has no write access.
 tools: Read, Grep, Glob
 model: inherit
 ---

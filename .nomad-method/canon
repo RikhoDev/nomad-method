@@ -1,0 +1,5 @@
+# The plugin's binding texts: what every session and every review is told.
+# Read by this plugin's own commit check (scripts/canon_check.py).
+plugin/discipline.md
+plugin/agents/judge.md
+plugin/skills/review/SKILL.md

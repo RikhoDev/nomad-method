@@ -1,4 +1,7 @@
 ---
+status: proposed
+kind: doctrine
+origin: ai
 name: review
 description: Review your own change before calling it done - reread it against the base, then hand it to an isolated judge that sees the change but not your reasoning. Use before committing or reporting a change to guidance, architecture docs or other canon as finished, and whenever the human asks for a review.
 argument-hint: "[base-ref]"

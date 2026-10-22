@@ -9,7 +9,9 @@ they matter, instead of relying on anyone remembering to ask for them.
 > RikhoKorp/NomadGameEngineV2, with its history (`git subtree split`). The
 > method it carries is written down in
 > [RikhoDev/NomadArchitecture](https://github.com/RikhoDev/NomadArchitecture),
-> which uses this plugin on itself.
+> which uses this plugin on itself. This repository is in turn the second
+> consumer of that canon: what fits and what does not is recorded in
+> [__Docs/_Trails/README.Trail.20261022.md](__Docs/_Trails/README.Trail.20261022.md).
 
 ## What it promises, and what it does not
 
