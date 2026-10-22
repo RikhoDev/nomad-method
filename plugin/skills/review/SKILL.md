@@ -1,5 +1,5 @@
 ---
-status: proposed
+status: canon
 kind: doctrine
 origin: ai
 name: review

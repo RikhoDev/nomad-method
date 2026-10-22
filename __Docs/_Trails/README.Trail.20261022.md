@@ -44,11 +44,8 @@ wrote this Trail, and are not repeated by anything in this repository.
   `SKILL.md` must begin with Claude Code's own YAML front matter (`name`,
   `description`, `tools`). NomadArchitecture's `status`, `kind` and `origin`
   were added to that same block, and `claude plugin validate` still passes.
-  They are `status: proposed`. Version 0.2.0 is packaged here (version
-  number, changelog, `dist/` zip), but the human has not yet accepted its
-  changes, including a new sentence on delegated authority in
-  `discipline.md`. On the assistant's reading, publishing 0.2.0 to the
-  organisation would be that acceptance.
+  They were `status: proposed` until the human accepted 0.2.0 on 2026-10-22:
+  "1. accepted, publish to main." They are now `canon`.
   (NA:`__Docs/README.md#status-header`)
 - **Trails.** This file lives in `__Docs/_Trails/`, is named for its owner and
   names it in `trail_of:`. (NA:`__Docs/README.md#trails-hold-the-conversation`)
