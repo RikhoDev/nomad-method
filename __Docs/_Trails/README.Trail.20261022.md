@@ -28,7 +28,9 @@ repository:
 - the check crashed when a canon list or canon index was missing;
 - the reader took the README's `<img>` icon line as its opening sentence.
 
-Both are fixed there, with proofs, in `937eddc`.
+Both are fixed there, with proofs, in RikhoDev/NomadArchitecture commit
+`937eddc`. The scratch-copy runs described here were done in the session that
+wrote this Trail, and are not repeated by anything in this repository.
 
 ## What fits, and was adopted
 
@@ -42,9 +44,11 @@ Both are fixed there, with proofs, in `937eddc`.
   `SKILL.md` must begin with Claude Code's own YAML front matter (`name`,
   `description`, `tools`). NomadArchitecture's `status`, `kind` and `origin`
   were added to that same block, and `claude plugin validate` still passes.
-  They are `status: proposed`, because their 0.2.0 changes, including a new
-  sentence on delegated authority in `discipline.md`, have not been accepted
-  by the human. Publishing 0.2.0 would be that acceptance.
+  They are `status: proposed`. Version 0.2.0 is packaged here (version
+  number, changelog, `dist/` zip), but the human has not yet accepted its
+  changes, including a new sentence on delegated authority in
+  `discipline.md`. On the assistant's reading, publishing 0.2.0 to the
+  organisation would be that acceptance.
   (NA:`__Docs/README.md#status-header`)
 - **Trails.** This file lives in `__Docs/_Trails/`, is named for its owner and
   names it in `trail_of:`. (NA:`__Docs/README.md#trails-hold-the-conversation`)
@@ -80,16 +84,11 @@ names `nomad_review_packet.py`.
    with `.nomad-method/canon`. This repository has no such index;
    `.nomad-method/canon` is enough here. The three-list agreement does not
    travel; the canon list does.
-4. **Folder grammar against language habits.** `tests/`, `dist/` and
-   `examples/` are structural folders without the `_` prefix
-   (NA:`__Docs/README.md#folder-grammar`). `tests/` is also what
-   `python3 -m unittest discover -s tests` expects by habit. Not renamed:
-   nothing is gained but conformity, and the README's commands would change.
-5. **Feature READMEs.** The three parts (discipline, canon check, review) have
-   no README each; the root README's table describes all three. That fits
-   "parents summarise and link", but not the per-Feature README rule
-   (NA:`__Docs/Architecture.md#feature-readme`, itself still awaiting the
-   human's reading).
+4. **`_` prefix against Python habit.** `tests/`, `dist/` and `examples/`
+   lack it (NA:`__Docs/README.md#folder-grammar`). Not renamed.
+5. **No README per part.** The root README's table describes all three
+   parts, against NA:`__Docs/Architecture.md#feature-readme` (still awaiting
+   the human's reading).
 6. **The tools need PowerShell.** NomadArchitecture's check and reader run on
    `pwsh`; this repository's tooling is Python. They ran here only because
    `pwsh` was installed by hand. A canon that wants second consumers may need
@@ -106,12 +105,3 @@ names `nomad_review_packet.py`.
 By the promotion rule (NA:`__Docs/Architecture.md#promotion`), these are
 realization and policy differences to classify, not a conflict, and the
 saving would be a few lines. Not promoted.
-
-## What this says about the canon
-
-Of the canon's rules, the canon list, status headers, Trails, the placement
-test's spirit, and evidence and authority carried over. The rest met a
-platform or language convention first: the first folders, files consumed
-verbatim, the canon index, the `_` prefix and the tooling language. Each
-misfit above is a candidate amendment for NomadArchitecture, for the human to
-accept or reject. None was made there.
